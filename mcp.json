@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "sys2rust": {
+      "command": "sys2rust",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "RUST_LOG": "warn"
+      }
+    }
+  }
+}

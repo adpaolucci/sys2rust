@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+
+PackageIdentifier: adpaolucci.sys2rust
+PackageVersion: 0.1.0
+PackageLocale: en-US
+Publisher: adpaolucci
+PublisherUrl: https://github.com/adpaolucci
+PublisherSupportUrl: https://github.com/adpaolucci/sys2rust/issues
+PackageName: Sys2Rust
+PackageUrl: https://sys2rust.guap.ca
+License: Apache-2.0
+LicenseUrl: https://github.com/adpaolucci/sys2rust/blob/main/LICENSE
+Copyright: Copyright (c) 2026 adpaolucci
+ShortDescription: 48-tool Windows process/ETW, hardware/SMBIOS/ACPI, shell/registry, and pure-Rust PE/.NET inspection suite with dual GUIs, CLI, and MCP server.
+Description: >-
+  sys2rust is a 48-tool Windows system, hardware, shell, and PE32/PE32+/.NET inspection suite
+  built in Rust (Edition 2024) on guap-kit. It covers process/thread/handle/ETW monitoring
+  without DLL injection, services/drivers/devices/Task Scheduler/WMI/SMBIOS/ACPI/battery/codecs/timezones,
+  shell/startup/MSI/Appx/COM/DesktopOK/TrayNotify/CleanAfterMe audit, and pure-Rust PE/.NET extraction,
+  with dual Win32 (WinSafe) & Iced 0.14 GUIs, 7-format exports with SHA-256/512 Merkle custody,
+  and a read-only-default MCP JSON-RPC stdio server.
+Moniker: sys2rust
+Tags:
+  - windows
+  - process
+  - etw
+  - firmware
+  - pe
+  - dotnet
+  - win32
+  - rust
+  - cli
+  - gui
+  - mcp
+ReleaseNotesUrl: https://github.com/adpaolucci/sys2rust/releases/tag/v0.1.0
+Documentations:
+  - DocumentLabel: Project Hub & Documentation
+    DocumentUrl: https://sys2rust.guap.ca
+ManifestType: defaultLocale
+ManifestVersion: 1.9.0

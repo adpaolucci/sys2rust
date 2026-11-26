@@ -1,0 +1,22 @@
+{
+  "name": "Sys2Rust System, Shell & PE Workstation",
+  "version": "0.1.0",
+  "description": "48-tool pure-Rust & Win32/ETW Windows process, hardware/firmware, shell/registry, and PE32/PE32+/.NET inspection suite with dual Win32/Iced GUIs, CLI, Merkle custody reports, and policy-gated MCP server.",
+  "repository": "https://github.com/adpaolucci/sys2rust",
+  "homepage": "https://sys2rust.guap.ca",
+  "license": "Apache-2.0",
+  "binaries": [
+    "sys2rust",
+    "sys2rust-win32",
+    "sys2rust-iced",
+    "sys2rust-mcp"
+  ],
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "13 process, thread, handle (with named-pipe deadlock guard), heap, GDI, hang, and passive ETW monitors (zero DLL injection)",
+    "10 hardware, service, driver, device, Task Scheduler XML, WMI, pure-Rust SMBIOS/ACPI firmware, battery, codec, and timezone tools",
+    "19 shell, startup, uninstall, MSI/Appx, shell extension, file association, COM, DesktopOK, TrayNotify ROT13, and read-only CleanAfterMe audit tools",
+    "6 pure-Rust PE32/PE32+ & ECMA-335 .NET tools (exports, resources, ICO reassembly, .NET resources, exeinfo, GAC)",
+    "Native Win32 (WinSafe) & Iced 0.14 dual GUIs, 7-format guap-export + SHA-256/512 Merkle custody, and policy-gated MCP stdio server"
+  ]
+}

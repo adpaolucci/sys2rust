@@ -1,0 +1,75 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/sys2rust-core",
+    "crates/sys2rust-proc",
+    "crates/sys2rust-hw",
+    "crates/sys2rust-shell",
+    "crates/sys2rust-pe",
+    "crates/sys2rust-report",
+    "crates/sys2rust-mcp",
+    "crates/sys2rust-cli",
+    "crates/sys2rust-win32",
+    "crates/sys2rust-iced",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "Apache-2.0"
+repository = "https://github.com/adpaolucci/sys2rust"
+homepage = "https://sys2rust.guap.ca"
+documentation = "https://sys2rust.guap.ca"
+authors = ["adpaolucci", "GUAP Contributors"]
+description = "48-tool Windows process/ETW, hardware/SMBIOS/ACPI, shell/registry, and pure-Rust PE32/PE32+/.NET inspection suite with dual Win32/Iced GUIs, CLI, and MCP server"
+keywords = ["windows", "process", "etw", "pe", "sysinternals", "mcp"]
+categories = ["command-line-utilities", "os::windows-apis", "development-tools"]
+
+[workspace.dependencies]
+guap-table = { path = "../guap-kit/crates/guap-table" }
+guap-export = { path = "../guap-kit/crates/guap-export" }
+guap-gui-win32 = { path = "../guap-kit/crates/guap-gui-win32" }
+guap-gui-iced = { path = "../guap-kit/crates/guap-gui-iced" }
+guap-mcp = { path = "../guap-kit/crates/guap-mcp" }
+
+sys2rust-core = { path = "crates/sys2rust-core" }
+sys2rust-proc = { path = "crates/sys2rust-proc" }
+sys2rust-hw = { path = "crates/sys2rust-hw" }
+sys2rust-shell = { path = "crates/sys2rust-shell" }
+sys2rust-pe = { path = "crates/sys2rust-pe" }
+sys2rust-report = { path = "crates/sys2rust-report" }
+sys2rust-mcp = { path = "crates/sys2rust-mcp" }
+
+anyhow = "1.0"
+thiserror = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+regex = "1.13"
+sha2 = "0.11"
+hex = "0.4"
+csv = "1.4"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+clap = { version = "4.6", features = ["derive"] }
+winsafe = { version = "0.0.29", features = ["gui", "shell"] }
+iced = { version = "0.14", features = ["wgpu", "tiny-skia", "tokio"] }
+windows = "0.62"
+winreg = "0.56"
+roxmltree = "0.20"
+quick-xml = "0.41"
+dirs = "7.0"
+rfd = "0.18"
+arboard = "3.7"
+ctrlc = "3.5"
+tempfile = "3.27"
+walkdir = "2.5"
+embed-resource = "3.0"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = true

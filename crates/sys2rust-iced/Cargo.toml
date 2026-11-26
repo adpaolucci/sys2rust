@@ -1,0 +1,26 @@
+[package]
+name = "sys2rust-iced"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+description = "Cross-platform pure-Rust Iced 0.14 desktop console for sys2rust"
+
+[[bin]]
+name = "sys2rust-iced"
+path = "src/main.rs"
+
+[dependencies]
+sys2rust-core.workspace = true
+sys2rust-mcp.workspace = true
+guap-table.workspace = true
+guap-export.workspace = true
+guap-gui-iced.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

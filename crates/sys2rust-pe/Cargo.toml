@@ -1,0 +1,25 @@
+[package]
+name = "sys2rust-pe"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+description = "6 pure-Rust PE32/PE32+ and ECMA-335 .NET inspection tools (zero unsafe, zero external PE crates)"
+
+[dependencies]
+sys2rust-core.workspace = true
+guap-table.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+sha2.workspace = true
+hex.workspace = true
+walkdir.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

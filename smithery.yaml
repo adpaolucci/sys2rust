@@ -1,0 +1,39 @@
+# Smithery configuration for sys2rust
+# https://smithery.ai
+name: sys2rust-mcp
+version: "0.1.0"
+description: "48-tool Windows process/ETW, hardware/SMBIOS/ACPI, shell/registry, and pure-Rust PE32/PE32+/.NET inspection suite with read-only default MCP server"
+repository: "https://github.com/adpaolucci/sys2rust"
+license: "Apache-2.0"
+
+entrypoint:
+  type: stdio
+  command: sys2rust
+  args:
+    - mcp
+
+build:
+  type: cargo
+  crate: sys2rust-cli
+
+tools:
+  - name: proc_list
+    description: "Enumerate running Windows processes, command lines, memory counters, CPU time, and integrity levels."
+  - name: proc_threads
+    description: "Inspect threads, start addresses, priorities, states, and wait reasons."
+  - name: proc_activity
+    description: "Aggregate per-file process I/O activity via passive ETW Microsoft-Windows-Kernel-File."
+  - name: hw_services
+    description: "Inspect Windows services, status, startup type, binary path, and account."
+  - name: hw_firmware
+    description: "Inspect and decode SMBIOS and ACPI firmware tables with checksum validation."
+  - name: shell_startup
+    description: "Inspect startup items and StartupApproved binary state across Run keys and Startup folders."
+  - name: shell_privacy_audit
+    description: "Read-only audit of shell MRU, RunMRU, TypedPaths, Recent, and temp artifacts."
+  - name: pe_info
+    description: "Inspect PE32/PE32+ headers, version info, Authenticode signature presence, and .NET status in pure Rust."
+  - name: pe_exports
+    description: "Inspect named, ordinal, and forwarded DLL exports in pure Rust."
+  - name: pe_dotnet
+    description: "Inspect ECMA-335 .NET assembly metadata and embedded ManifestResource streams in pure Rust."

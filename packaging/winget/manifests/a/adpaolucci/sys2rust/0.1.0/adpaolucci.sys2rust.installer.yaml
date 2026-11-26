@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+
+PackageIdentifier: adpaolucci.sys2rust
+PackageVersion: 0.1.0
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+  - RelativeFilePath: sys2rust.exe
+    PortableCommandAlias: sys2rust
+  - RelativeFilePath: sys2rust-win32.exe
+    PortableCommandAlias: sys2rust-win32
+  - RelativeFilePath: sys2rust-iced.exe
+    PortableCommandAlias: sys2rust-iced
+  - RelativeFilePath: sys2rust-mcp.exe
+    PortableCommandAlias: sys2rust-mcp
+ReleaseDate: 2026-11-23
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/adpaolucci/sys2rust/releases/download/v0.1.0/sys2rust-x86_64-pc-windows-msvc.zip
+    InstallerSha256: 0000000000000000000000000000000000000000000000000000000000000000
+ManifestType: installer
+ManifestVersion: 1.9.0
