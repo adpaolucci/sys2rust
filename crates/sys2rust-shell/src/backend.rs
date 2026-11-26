@@ -91,7 +91,7 @@ pub struct ShellMenuItem {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ShellMenuNewItem {
+pub struct ShellNewItem {
     pub extension: String,
     pub file_type: String,
     pub menu_text: String,
@@ -221,7 +221,7 @@ pub trait ShellBackend: Send + Sync {
     fn list_legacy_uninst(&self) -> Sys2RustResult<Vec<LegacyUninstallItem>>;
     fn list_shellex(&self) -> Sys2RustResult<Vec<ShellExtItem>>;
     fn list_menus(&self) -> Sys2RustResult<Vec<ShellMenuItem>>;
-    fn list_menu_new(&self) -> Sys2RustResult<Vec<ShellMenuNewItem>>;
+    fn list_menu_new(&self) -> Sys2RustResult<Vec<ShellNewItem>>;
     fn list_filetypes(&self) -> Sys2RustResult<Vec<FileTypeItem>>;
     fn list_openwith(&self) -> Sys2RustResult<Vec<OpenWithItem>>;
     fn list_com(&self) -> Sys2RustResult<Vec<ComRegItem>>;

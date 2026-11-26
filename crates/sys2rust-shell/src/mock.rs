@@ -7,11 +7,11 @@ use sys2rust_core::{Sys2RustError, Sys2RustResult};
 use crate::backend::{
     AppCompatItem, AppxPkgItem, ComRegItem, DesktopIconItem, EnvVarItem, ExplorerExtItem, FileTypeItem,
     LegacyUninstallItem, MsiPackageItem, MuiVerItem, OpenWithItem, PrivacyAuditItem, ShellBackend, ShellExtItem,
-    ShellMenuItem, ShellMenuNewItem, StartupItem, TrayIconItem, UninstallItem, UrlProtoItem,
+    ShellMenuItem, ShellNewItem, StartupItem, TrayIconItem, UninstallItem, UrlProtoItem,
 };
 use crate::parsers::{
-    decode_startup_approved, encode_startup_approved, parse_appx_manifest_xml, parse_desktopok_ini,
-    parse_tray_notify_stream, rot13_str, serialize_desktopok_ini, validate_privacy_categories,
+    decode_startup_approved, encode_startup_approved, parse_appx_manifest_xml, parse_desktop_icons_ini,
+    parse_tray_notify_stream, rot13_str, serialize_desktop_icons_ini, validate_privacy_categories,
 };
 
 #[derive(Debug, Default)]
@@ -20,7 +20,7 @@ struct MockShellState {
     uninstall: Vec<UninstallItem>,
     shellex: Vec<ShellExtItem>,
     menus: Vec<ShellMenuItem>,
-    menu_new: Vec<ShellMenuNewItem>,
+    menu_new: Vec<ShellNewItem>,
     filetypes: Vec<FileTypeItem>,
     openwith: Vec<OpenWithItem>,
     com: Vec<ComRegItem>,
@@ -112,7 +112,7 @@ impl SyntheticShellBackend {
             registry_key: r"HKCR\*\shell\VSCode".to_string(),
         }];
 
-        let menu_new = vec![ShellMenuNewItem {
+        let menu_new = vec![ShellNewItem {
             extension: ".txt".to_string(),
             file_type: "txtfile".to_string(),
             menu_text: "Text Document".to_string(),
@@ -190,8 +190,8 @@ impl SyntheticShellBackend {
             registry_key: r"HKCU\Environment".to_string(),
         }];
 
-        let desktop_icons = parse_desktopok_ini(
-            "[DesktopOK]\nProfile=Workstation\nCount=2\n\n[Icon_0]\nName=Recycle Bin\nX=24\nY=24\nMonitor=Primary\n\n[Icon_1]\nName=sys2rust\nX=24\nY=120\nMonitor=Primary\n",
+        let desktop_icons = parse_desktop_icons_ini(
+            "[DesktopIcons]\nProfile=Workstation\nCount=2\n\n[Icon_0]\nName=Recycle Bin\nX=24\nY=24\nMonitor=Primary\n\n[Icon_1]\nName=sys2rust\nX=24\nY=120\nMonitor=Primary\n",
         );
 
         let privacy_items = vec![
@@ -317,7 +317,7 @@ impl ShellBackend for SyntheticShellBackend {
     fn list_menus(&self) -> Sys2RustResult<Vec<ShellMenuItem>> {
         Ok(self.state.lock().unwrap().menus.clone())
     }
-    fn list_menu_new(&self) -> Sys2RustResult<Vec<ShellMenuNewItem>> {
+    fn list_menu_new(&self) -> Sys2RustResult<Vec<ShellNewItem>> {
         Ok(self.state.lock().unwrap().menu_new.clone())
     }
     fn list_filetypes(&self) -> Sys2RustResult<Vec<FileTypeItem>> {
@@ -586,7 +586,7 @@ impl ShellBackend for SyntheticShellBackend {
 
     fn restore_desktop_icons(&self, profile: &str, dry_run: bool) -> Sys2RustResult<String> {
         let icons = self.state.lock().unwrap().desktop_icons.clone();
-        let ini = serialize_desktopok_ini(profile, &icons);
+        let ini = serialize_desktop_icons_ini(profile, &icons);
         if dry_run {
             return Ok(format!(
                 "[dry-run] would restore {} desktop icons for profile '{profile}' ({} bytes INI)",

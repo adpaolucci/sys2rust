@@ -46,7 +46,7 @@ fn hex_u64(v: u64) -> CellValue {
     CellValue::Hex(v.to_be_bytes().to_vec())
 }
 
-// 1. proc_threads (ProcessThreadsView)
+// 1. proc_threads
 pub struct ProcThreadsProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -60,12 +60,12 @@ impl TableProvider for ProcThreadsProvider {
         "proc_threads"
     }
     fn description(&self) -> &'static str {
-        "Inspect running Windows threads, start addresses, priorities, states, and wait reasons (ProcessThreadsView)"
+        "Inspect running Windows threads, start addresses, priorities, states, and wait reasons"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Process Threads (ProcessThreadsView)",
+            "Process Threads",
             vec![
                 ColumnDef::new("tid", "TID", ColumnType::Uint).with_width_hint(80),
                 ColumnDef::new("pid", "PID", ColumnType::Uint).with_width_hint(80),
@@ -112,7 +112,7 @@ impl TableProvider for ProcThreadsProvider {
     }
 }
 
-// 2. proc_dlls (LoadedDllsView)
+// 2. proc_dlls
 pub struct ProcDllsProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -126,12 +126,12 @@ impl TableProvider for ProcDllsProvider {
         "proc_dlls"
     }
     fn description(&self) -> &'static str {
-        "Inspect loaded DLL modules across processes with version metadata (LoadedDllsView)"
+        "Inspect loaded DLL modules across processes with version metadata"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Loaded DLLs (LoadedDllsView)",
+            "Loaded DLLs",
             vec![
                 ColumnDef::new("dll_path", "DLL Path", ColumnType::Text).with_width_hint(240),
                 ColumnDef::new("dll_name", "DLL Name", ColumnType::Text).with_width_hint(140),
@@ -174,7 +174,7 @@ impl TableProvider for ProcDllsProvider {
     }
 }
 
-// 3. proc_handles (HandleView)
+// 3. proc_handles
 pub struct ProcHandlesProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -188,12 +188,12 @@ impl TableProvider for ProcHandlesProvider {
         "proc_handles"
     }
     fn description(&self) -> &'static str {
-        "Inspect open kernel handles per process with synchronous pipe deadlock guard (HandleView)"
+        "Inspect open kernel handles per process with synchronous pipe deadlock guard"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Process Handles (HandleView)",
+            "Process Handles",
             vec![
                 ColumnDef::new("pid", "PID", ColumnType::Uint).with_width_hint(80),
                 ColumnDef::new("process_name", "Process", ColumnType::Text).with_width_hint(140),
@@ -230,7 +230,7 @@ impl TableProvider for ProcHandlesProvider {
     }
 }
 
-// 4. proc_open_files (OpenFilesView)
+// 4. proc_open_files
 pub struct ProcOpenFilesProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -244,12 +244,12 @@ impl TableProvider for ProcOpenFilesProvider {
         "proc_open_files"
     }
     fn description(&self) -> &'static str {
-        "Inspect open file handles across processes with FILE_TYPE_PIPE timeout guard (OpenFilesView)"
+        "Inspect open file handles across processes with FILE_TYPE_PIPE timeout guard"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Open Files (OpenFilesView)",
+            "Open Files",
             vec![
                 ColumnDef::new("filename", "Filename", ColumnType::Text).with_width_hint(150),
                 ColumnDef::new("full_path", "Full Path", ColumnType::Text).with_width_hint(250),
@@ -292,7 +292,7 @@ impl TableProvider for ProcOpenFilesProvider {
     }
 }
 
-// 5. proc_activity (ProcessActivityView via ETW Kernel-File)
+// 5. proc_activity (ETW Kernel-File)
 pub struct ProcActivityProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -306,7 +306,7 @@ impl TableProvider for ProcActivityProvider {
         "proc_activity"
     }
     fn description(&self) -> &'static str {
-        "Aggregate per-file I/O activity via passive ETW Microsoft-Windows-Kernel-File (ProcessActivityView)"
+        "Aggregate per-file I/O activity via passive ETW Microsoft-Windows-Kernel-File"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
@@ -352,7 +352,7 @@ impl TableProvider for ProcActivityProvider {
     }
 }
 
-// 6. proc_heap (HeapMemView)
+// 6. proc_heap
 pub struct ProcHeapProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -366,12 +366,12 @@ impl TableProvider for ProcHeapProvider {
         "proc_heap"
     }
     fn description(&self) -> &'static str {
-        "Inspect process heap blocks and ASCII/hex previews via ToolHelp + ReadProcessMemory (HeapMemView)"
+        "Inspect process heap blocks and ASCII/hex previews via ToolHelp + ReadProcessMemory"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Process Heap Blocks (HeapMemView)",
+            "Process Heap Blocks",
             vec![
                 ColumnDef::new("heap_id", "Heap ID", ColumnType::Hex).with_width_hint(130),
                 ColumnDef::new("block_address", "Block Address", ColumnType::Hex).with_width_hint(135),
@@ -406,7 +406,7 @@ impl TableProvider for ProcHeapProvider {
     }
 }
 
-// 7. proc_gdi (GDIView)
+// 7. proc_gdi
 pub struct ProcGdiProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -420,12 +420,12 @@ impl TableProvider for ProcGdiProvider {
         "proc_gdi"
     }
     fn description(&self) -> &'static str {
-        "Inspect per-process GDI and USER object handle counters (GDIView)"
+        "Inspect per-process GDI and USER object handle counters"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Process GDI / USER Counters (GDIView)",
+            "Process GDI / USER Counters",
             vec![
                 ColumnDef::new("pid", "PID", ColumnType::Uint).with_width_hint(80),
                 ColumnDef::new("process_name", "Process", ColumnType::Text).with_width_hint(150),
@@ -472,7 +472,7 @@ impl TableProvider for ProcGdiProvider {
     }
 }
 
-// 8. proc_hang (WhatIsHang)
+// 8. proc_hang
 pub struct ProcHangProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -486,12 +486,12 @@ impl TableProvider for ProcHangProvider {
         "proc_hang"
     }
     fn description(&self) -> &'static str {
-        "Diagnose hung windows using Wait Chain Traversal (WCT) and StackWalk64 (WhatIsHang)"
+        "Diagnose hung windows using Wait Chain Traversal (WCT) and StackWalk64"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Hung Window Diagnostics (WhatIsHang)",
+            "Hung Window Diagnostics",
             vec![
                 ColumnDef::new("pid", "PID", ColumnType::Uint).with_width_hint(80),
                 ColumnDef::new("process_name", "Process", ColumnType::Text).with_width_hint(140),
@@ -532,7 +532,7 @@ impl TableProvider for ProcHangProvider {
     }
 }
 
-// 9. proc_debug (SimpleProgramDebugger)
+// 9. proc_debug
 pub struct ProcDebugProvider {
     backend: Arc<dyn ProcBackend>,
 }
@@ -546,12 +546,12 @@ impl TableProvider for ProcDebugProvider {
         "proc_debug"
     }
     fn description(&self) -> &'static str {
-        "Capture passive debug/module events without DLL injection (SimpleProgramDebugger)"
+        "Capture passive debug/module events without DLL injection"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Program Debug Events (SimpleProgramDebugger)",
+            "Program Debug Events",
             vec![
                 ColumnDef::new("event_time", "Time", ColumnType::Timestamp).with_width_hint(170),
                 ColumnDef::new("event_type", "Event Type", ColumnType::Text).with_width_hint(170),

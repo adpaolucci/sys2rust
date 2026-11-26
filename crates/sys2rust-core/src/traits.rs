@@ -23,7 +23,7 @@ impl ToolDomain {
 pub struct ToolCatalogEntry {
     pub tool_id: &'static str,
     pub domain: ToolDomain,
-    pub nirsoft_name: &'static str,
+    pub display_name: &'static str,
     pub cli_subcommand: &'static str,
     pub read_only: bool,
 }

@@ -15,8 +15,8 @@
   "majorCapabilities": [
     "13 process, thread, handle (with named-pipe deadlock guard), heap, GDI, hang, and passive ETW monitors (zero DLL injection)",
     "10 hardware, service, driver, device, Task Scheduler XML, WMI, pure-Rust SMBIOS/ACPI firmware, battery, codec, and timezone tools",
-    "19 shell, startup, uninstall, MSI/Appx, shell extension, file association, COM, DesktopOK, TrayNotify ROT13, and read-only CleanAfterMe audit tools",
-    "6 pure-Rust PE32/PE32+ & ECMA-335 .NET tools (exports, resources, ICO reassembly, .NET resources, exeinfo, GAC)",
+    "19 shell, startup, uninstall, MSI/Appx, shell extension, file association, COM, desktop icon layout, tray notify ROT13, and read-only privacy audit tools",
+    "6 pure-Rust PE32/PE32+ & ECMA-335 .NET tools (exports, resources, ICO reassembly, .NET resources, executable info, GAC)",
     "Native Win32 (WinSafe) & Iced 0.14 dual GUIs, 7-format guap-export + SHA-256/512 Merkle custody, and policy-gated MCP stdio server"
   ]
 }

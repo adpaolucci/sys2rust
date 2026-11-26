@@ -159,9 +159,9 @@ pub fn parse_appx_manifest_xml(install_location: &str, family_name: &str, xml: &
     })
 }
 
-/// Serialize desktop icon positions to DesktopOK-compatible INI text.
-pub fn serialize_desktopok_ini(profile: &str, icons: &[DesktopIconItem]) -> String {
-    let mut out = format!("[DesktopOK]\nProfile={profile}\nCount={}\n", icons.len());
+/// Serialize desktop icon positions to desktop icon profile INI text.
+pub fn serialize_desktop_icons_ini(profile: &str, icons: &[DesktopIconItem]) -> String {
+    let mut out = format!("[DesktopIcons]\nProfile={profile}\nCount={}\n", icons.len());
     for (idx, icon) in icons.iter().enumerate() {
         out.push_str(&format!(
             "\n[Icon_{idx}]\nName={}\nX={}\nY={}\nMonitor={}\n",
@@ -171,8 +171,8 @@ pub fn serialize_desktopok_ini(profile: &str, icons: &[DesktopIconItem]) -> Stri
     out
 }
 
-/// Parse DesktopOK-compatible INI text into `DesktopIconItem`s.
-pub fn parse_desktopok_ini(ini: &str) -> Vec<DesktopIconItem> {
+/// Parse desktop icon profile INI text into `DesktopIconItem`s.
+pub fn parse_desktop_icons_ini(ini: &str) -> Vec<DesktopIconItem> {
     let mut profile = "Default".to_string();
     let mut icons = Vec::new();
     let mut cur_section = String::new();
@@ -225,7 +225,7 @@ pub fn parse_desktopok_ini(ini: &str) -> Vec<DesktopIconItem> {
         if let Some((k, v)) = line.split_once('=') {
             let key = k.trim();
             let val = v.trim();
-            if cur_section == "DesktopOK" && key.eq_ignore_ascii_case("Profile") {
+            if cur_section == "DesktopIcons" && key.eq_ignore_ascii_case("Profile") {
                 profile = val.to_string();
             } else if cur_section.starts_with("Icon_") {
                 match key {
@@ -251,7 +251,7 @@ pub fn parse_desktopok_ini(ini: &str) -> Vec<DesktopIconItem> {
     icons
 }
 
-/// Validate `CleanAfterMe` privacy categories (rejects empty or unknown categories).
+/// Validate shell privacy categories (rejects empty or unknown categories).
 pub fn validate_privacy_categories(categories: &[String]) -> Sys2RustResult<Vec<&'static str>> {
     if categories.is_empty() {
         return Err(Sys2RustError::InvalidArgument(
@@ -280,7 +280,7 @@ pub fn validate_privacy_categories(categories: &[String]) -> Sys2RustResult<Vec<
     Ok(out)
 }
 
-/// Resolve a DesktopOK profile argument either as an explicit file path or under
+/// Resolve a desktop icon profile argument either as an explicit file path or under
 /// `<config_dir>/sys2rust/desktop_profiles/<profile>.ini`.
 pub fn resolve_desktop_profile_path(profile: &str) -> PathBuf {
     let trimmed = profile.trim();

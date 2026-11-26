@@ -12,7 +12,7 @@ use sys2rust_core::Sys2RustConfig;
 pub use backend::{
     AppCompatItem, AppxPkgItem, ComRegItem, DesktopIconItem, EnvVarItem, ExplorerExtItem, FileTypeItem,
     LegacyUninstallItem, MsiPackageItem, MuiVerItem, OpenWithItem, PrivacyAuditItem, ShellBackend, ShellExtItem,
-    ShellMenuItem, ShellMenuNewItem, StartupItem, TrayIconItem, UninstallItem, UrlProtoItem,
+    ShellMenuItem, ShellNewItem, StartupItem, TrayIconItem, UninstallItem, UrlProtoItem,
 };
 pub use mock::SyntheticShellBackend;
 pub use providers::{all_shell_actions, all_shell_providers};

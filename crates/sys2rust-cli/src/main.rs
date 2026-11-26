@@ -8,7 +8,7 @@ use anyhow::{Context, Result, bail};
 use clap::{Args, Parser, Subcommand};
 use guap_export::{ExportFormat, write_custody_manifest_json};
 use guap_mcp::PolicyMode;
-use guap_table::{GetNirQuery, TableProvider, TableQuery};
+use guap_table::{GuapQuery, TableProvider, TableQuery};
 use sys2rust_core::{Sys2RustConfig, check_availability, init_logging};
 use sys2rust_hw::{all_hw_providers, default_hw_backend};
 use sys2rust_mcp::{build_sys2rust_registry, print_tools_manifest_json, serve_mcp_stdio, synthetic_gac_root};
@@ -54,7 +54,7 @@ struct Cli {
     #[arg(long, global = true)]
     custody: Option<PathBuf>,
 
-    /// GetNir filter expression (e.g. "name ~ svchost" or "pid > 100")
+    /// Tabular filter expression (e.g. "name ~ svchost" or "pid > 100")
     #[arg(long, global = true)]
     filter: Option<String>,
 
@@ -98,7 +98,7 @@ enum Commands {
         #[command(subcommand)]
         sub: HwSub,
     },
-    /// Shell, startup, uninstall, MSI/Appx, shell extensions, menus, filetypes, COM, DesktopOK, TrayNotify, privacy audit (19)
+    /// Shell, startup, uninstall, MSI/Appx, shell extensions, menus, filetypes, COM, desktop icons, tray notify, privacy audit (19)
     Shell {
         #[command(subcommand)]
         sub: ShellSub,
@@ -326,7 +326,7 @@ fn build_config(cli: &Cli) -> Sys2RustConfig {
 
 fn build_table_query(cli: &Cli, provider: &dyn TableProvider) -> Result<TableQuery> {
     let schema = provider.schema();
-    let mut gq = GetNirQuery::new();
+    let mut gq = GuapQuery::new();
     if let Some(ref f) = cli.filter {
         gq.filter_expr = Some(f.clone());
     }
@@ -336,7 +336,7 @@ fn build_table_query(cli: &Cli, provider: &dyn TableProvider) -> Result<TableQue
         } else {
             s.clone()
         };
-        gq.sort = GetNirQuery::parse_sort(&normalized).map_err(|e| anyhow::anyhow!("{e}"))?;
+        gq.sort = GuapQuery::parse_sort(&normalized).map_err(|e| anyhow::anyhow!("{e}"))?;
     }
     gq.limit = cli.limit;
     gq.to_table_query(&schema).map_err(|e| anyhow::anyhow!("{e}"))

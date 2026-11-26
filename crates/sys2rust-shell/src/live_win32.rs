@@ -34,10 +34,10 @@ use windows::core::{BOOL, HSTRING, PCWSTR, PWSTR};
 use crate::backend::{
     AppCompatItem, AppxPkgItem, ComRegItem, DesktopIconItem, EnvVarItem, ExplorerExtItem, FileTypeItem,
     LegacyUninstallItem, MsiPackageItem, MuiVerItem, OpenWithItem, PrivacyAuditItem, ShellBackend, ShellExtItem,
-    ShellMenuItem, ShellMenuNewItem, StartupItem, TrayIconItem, UninstallItem, UrlProtoItem,
+    ShellMenuItem, ShellNewItem, StartupItem, TrayIconItem, UninstallItem, UrlProtoItem,
 };
 use crate::parsers::{
-    decode_startup_approved, encode_startup_approved, parse_desktopok_ini, parse_tray_notify_stream,
+    decode_startup_approved, encode_startup_approved, parse_desktop_icons_ini, parse_tray_notify_stream,
     resolve_desktop_profile_path, validate_privacy_categories,
 };
 
@@ -500,7 +500,7 @@ impl ShellBackend for LiveWin32ShellBackend {
         Ok(out)
     }
 
-    fn list_menu_new(&self) -> Sys2RustResult<Vec<ShellMenuNewItem>> {
+    fn list_menu_new(&self) -> Sys2RustResult<Vec<ShellNewItem>> {
         let mut out = Vec::new();
         let hkcr = RegKey::predef(HKEY_CLASSES_ROOT);
         for ext in hkcr.enum_keys().flatten().filter(|k| k.starts_with('.')) {
@@ -520,7 +520,7 @@ impl ShellBackend for LiveWin32ShellBackend {
                     "Other"
                 };
                 let disabled = sn.get_raw_value("LegacyDisable").is_ok();
-                out.push(ShellMenuNewItem {
+                out.push(ShellNewItem {
                     extension: ext.clone(),
                     file_type: ftype.clone(),
                     menu_text: ftype,
@@ -1349,10 +1349,10 @@ impl ShellBackend for LiveWin32ShellBackend {
             )));
         }
         let ini_text = std::fs::read_to_string(&profile_path)?;
-        let icons = parse_desktopok_ini(&ini_text);
+        let icons = parse_desktop_icons_ini(&ini_text);
         if icons.is_empty() {
             return Err(Sys2RustError::Parse {
-                format: "DesktopOK INI",
+                format: "Desktop Icons INI",
                 detail: format!("no icon coordinates found in '{}'", profile_path.display()),
             });
         }

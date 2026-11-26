@@ -15,7 +15,7 @@ pub struct VersionStrings {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ExeInfoSummary {
+pub struct PeInfoSummary {
     pub file_path: String,
     pub machine: String,
     pub subsystem: String,
@@ -164,7 +164,7 @@ pub fn infer_compiler_linker_hint(pe: &PeFile<'_>, is_dotnet: bool) -> String {
     }
 }
 
-pub fn summarize_exe_info(file_path: &str, pe: &PeFile<'_>, resources: &[ResourceEntry]) -> ExeInfoSummary {
+pub fn summarize_pe_info(file_path: &str, pe: &PeFile<'_>, resources: &[ResourceEntry]) -> PeInfoSummary {
     let com_dir = pe.data_dir(IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR);
     let is_dotnet = com_dir.virtual_address != 0 && com_dir.size >= 72;
     let ver = parse_version_info(resources).unwrap_or_default();
@@ -174,7 +174,7 @@ pub fn summarize_exe_info(file_path: &str, pe: &PeFile<'_>, resources: &[Resourc
         .find(|r| matches!(r.type_id, ResourceId::Numeric(24)))
         .map(|r| String::from_utf8_lossy(&r.data).trim_end_matches('\0').to_string());
 
-    ExeInfoSummary {
+    PeInfoSummary {
         file_path: file_path.to_string(),
         machine: pe.machine_name().to_string(),
         subsystem: pe.subsystem_name().to_string(),

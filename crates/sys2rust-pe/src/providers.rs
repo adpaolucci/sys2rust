@@ -16,7 +16,7 @@ use crate::gac::{default_gac_roots, scan_gac_roots};
 use crate::icons::reassemble_icons;
 use crate::pe::PeFile;
 use crate::resources::parse_resources;
-use crate::version_cert::summarize_exe_info;
+use crate::version_cert::summarize_pe_info;
 
 #[derive(Debug, Clone)]
 pub enum PeTargetSource {
@@ -96,13 +96,13 @@ impl TableProvider for PeExportsProvider {
     }
 
     fn description(&self) -> &'static str {
-        "Inspect named, ordinal-only, and forwarded DLL exports in pure Rust (DLLExportViewer equivalent)"
+        "Inspect named, ordinal-only, and forwarded DLL exports in pure Rust"
     }
 
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "PE Exports (DLLExportViewer)",
+            "PE Exports",
             vec![
                 ColumnDef::new("function_name", "Function Name", ColumnType::Text).with_width_hint(220),
                 ColumnDef::new("ordinal", "Ordinal", ColumnType::Uint).with_width_hint(80),
@@ -169,13 +169,13 @@ impl TableProvider for PeResourcesProvider {
     }
 
     fn description(&self) -> &'static str {
-        "Inspect embedded .rsrc Win32 resources with MIME detection and SHA-256 (ResourcesExtract equivalent)"
+        "Inspect embedded .rsrc Win32 resources with MIME detection and SHA-256"
     }
 
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "PE Resources (ResourcesExtract)",
+            "PE Resources",
             vec![
                 ColumnDef::new("resource_type", "Type", ColumnType::Text).with_width_hint(140),
                 ColumnDef::new("resource_name_or_id", "Name / ID", ColumnType::Text).with_width_hint(130),
@@ -236,13 +236,13 @@ impl TableProvider for PeIconsProvider {
     }
 
     fn description(&self) -> &'static str {
-        "Inspect and reassemble RT_GROUP_ICON / RT_GROUP_CURSOR payloads (IconsExtract equivalent)"
+        "Inspect and reassemble RT_GROUP_ICON / RT_GROUP_CURSOR payloads"
     }
 
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "PE Icons & Cursors (IconsExtract)",
+            "PE Icons & Cursors",
             vec![
                 ColumnDef::new("source_file", "Source File", ColumnType::Text).with_width_hint(200),
                 ColumnDef::new("group_id", "Group ID", ColumnType::Text).with_width_hint(100),
@@ -304,13 +304,13 @@ impl TableProvider for PeDotNetProvider {
     }
 
     fn description(&self) -> &'static str {
-        "Inspect ECMA-335 .NET assembly metadata and ManifestResource streams (DotNetResourcesExtract equivalent)"
+        "Inspect ECMA-335 .NET assembly metadata and ManifestResource streams"
     }
 
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            ".NET Embedded Resources (DotNetResourcesExtract)",
+            ".NET Embedded Resources",
             vec![
                 ColumnDef::new("assembly_name", "Assembly", ColumnType::Text).with_width_hint(160),
                 ColumnDef::new("resource_name", "Resource Name", ColumnType::Text).with_width_hint(220),
@@ -377,13 +377,13 @@ impl TableProvider for PeInfoProvider {
     }
 
     fn description(&self) -> &'static str {
-        "Inspect PE32/PE32+ headers, version strings, Authenticode signature presence, and compiler hints (ExeInfo equivalent)"
+        "Inspect PE32/PE32+ headers, version strings, Authenticode signature presence, and compiler hints"
     }
 
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "PE Executable Info (ExeInfo)",
+            "PE Executable Info",
             vec![
                 ColumnDef::new("file_path", "File Path", ColumnType::Text).with_width_hint(220),
                 ColumnDef::new("machine", "Machine", ColumnType::Text).with_width_hint(110),
@@ -408,7 +408,7 @@ impl TableProvider for PeInfoProvider {
         for (idx, (label, bytes)) in files.into_iter().enumerate() {
             let pe = PeFile::parse(&bytes).map_err(TableError::from)?;
             let resources = parse_resources(&pe).unwrap_or_default();
-            let info = summarize_exe_info(&label, &pe, &resources);
+            let info = summarize_pe_info(&label, &pe, &resources);
             let ts = dos_timestamp_to_datetime(info.time_date_stamp)
                 .map(CellValue::Timestamp)
                 .unwrap_or(CellValue::Null);
@@ -453,13 +453,13 @@ impl TableProvider for PeGacProvider {
     }
 
     fn description(&self) -> &'static str {
-        "Enumerate .NET Global Assembly Cache (GAC) assemblies and versions (GACView equivalent)"
+        "Enumerate .NET Global Assembly Cache (GAC) assemblies and versions"
     }
 
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            ".NET Global Assembly Cache (GACView)",
+            ".NET Global Assembly Cache",
             vec![
                 ColumnDef::new("assembly_name", "Assembly Name", ColumnType::Text).with_width_hint(200),
                 ColumnDef::new("version", "Version", ColumnType::Text).with_width_hint(110),

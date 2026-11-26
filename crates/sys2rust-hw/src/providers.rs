@@ -43,7 +43,7 @@ fn hex_u64(v: u64) -> CellValue {
     CellValue::Hex(v.to_be_bytes().to_vec())
 }
 
-// 1. hw_services (ServiWin)
+// 1. hw_services
 pub struct HwServicesProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -57,12 +57,12 @@ impl TableProvider for HwServicesProvider {
         "hw_services"
     }
     fn description(&self) -> &'static str {
-        "Inspect Windows services, status, startup type, binary path, and account (ServiWin)"
+        "Inspect Windows services, status, startup type, binary path, and account"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Windows Services (ServiWin)",
+            "Windows Services",
             vec![
                 ColumnDef::new("service_name", "Service Name", ColumnType::Text).with_width_hint(150),
                 ColumnDef::new("display_name", "Display Name", ColumnType::Text).with_width_hint(200),
@@ -107,7 +107,7 @@ impl TableProvider for HwServicesProvider {
     }
 }
 
-// 2. hw_drivers (DriverView)
+// 2. hw_drivers
 pub struct HwDriversProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -121,12 +121,12 @@ impl TableProvider for HwDriversProvider {
         "hw_drivers"
     }
     fn description(&self) -> &'static str {
-        "Inspect loaded kernel-mode device drivers and base addresses (DriverView)"
+        "Inspect loaded kernel-mode device drivers and base addresses"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Loaded Kernel Drivers (DriverView)",
+            "Loaded Kernel Drivers",
             vec![
                 ColumnDef::new("driver_name", "Driver Name", ColumnType::Text).with_width_hint(150),
                 ColumnDef::new("address", "Base Address", ColumnType::Hex).with_width_hint(140),
@@ -171,7 +171,7 @@ impl TableProvider for HwDriversProvider {
     }
 }
 
-// 3. hw_devices (DevManView)
+// 3. hw_devices
 pub struct HwDevicesProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -185,12 +185,12 @@ impl TableProvider for HwDevicesProvider {
         "hw_devices"
     }
     fn description(&self) -> &'static str {
-        "Inspect PnP devices, status, problem codes, hardware IDs, and drivers (DevManView)"
+        "Inspect PnP devices, status, problem codes, hardware IDs, and drivers"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "PnP Device Manager (DevManView)",
+            "PnP Device Manager",
             vec![
                 ColumnDef::new("device_name", "Device Name", ColumnType::Text).with_width_hint(220),
                 ColumnDef::new("device_type", "Class", ColumnType::Text).with_width_hint(120),
@@ -235,7 +235,7 @@ impl TableProvider for HwDevicesProvider {
     }
 }
 
-// 4. hw_tasks (TaskSchedulerView)
+// 4. hw_tasks
 pub struct HwTasksProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -249,12 +249,12 @@ impl TableProvider for HwTasksProvider {
         "hw_tasks"
     }
     fn description(&self) -> &'static str {
-        "Inspect Windows Scheduled Tasks via TaskScheduler COM and Task XML parser (TaskSchedulerView)"
+        "Inspect Windows Scheduled Tasks via TaskScheduler COM and Task XML parser"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Scheduled Tasks (TaskSchedulerView)",
+            "Scheduled Tasks",
             vec![
                 ColumnDef::new("task_name", "Task Name", ColumnType::Text).with_width_hint(180),
                 ColumnDef::new("folder", "Folder", ColumnType::Text).with_width_hint(180),
@@ -301,7 +301,7 @@ impl TableProvider for HwTasksProvider {
     }
 }
 
-// 5. hw_wmi (SimpleWMIView)
+// 5. hw_wmi
 pub struct HwWmiProvider {
     backend: Arc<dyn HwBackend>,
     cfg: Sys2RustConfig,
@@ -316,12 +316,12 @@ impl TableProvider for HwWmiProvider {
         "hw_wmi"
     }
     fn description(&self) -> &'static str {
-        "Execute WQL queries against WMI namespaces with SAFEARRAY & DMTF handling (SimpleWMIView)"
+        "Execute WQL queries against WMI namespaces with SAFEARRAY & DMTF handling"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "WMI Query Results (SimpleWMIView)",
+            "WMI Query Results",
             vec![
                 ColumnDef::new("namespace", "Namespace", ColumnType::Text).with_width_hint(120),
                 ColumnDef::new("class_name", "Class", ColumnType::Text).with_width_hint(160),
@@ -360,7 +360,7 @@ impl TableProvider for HwWmiProvider {
     }
 }
 
-// 6. hw_firmware (FirmwareTablesView)
+// 6. hw_firmware
 pub struct HwFirmwareProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -374,12 +374,12 @@ impl TableProvider for HwFirmwareProvider {
         "hw_firmware"
     }
     fn description(&self) -> &'static str {
-        "Inspect and decode SMBIOS and ACPI firmware tables with checksum validation (FirmwareTablesView)"
+        "Inspect and decode SMBIOS and ACPI firmware tables with checksum validation"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Firmware Tables: SMBIOS & ACPI (FirmwareTablesView)",
+            "Firmware Tables: SMBIOS & ACPI",
             vec![
                 ColumnDef::new("provider_signature", "Provider", ColumnType::Text).with_width_hint(80),
                 ColumnDef::new("table_id", "Table ID", ColumnType::Text).with_width_hint(90),
@@ -419,7 +419,7 @@ impl TableProvider for HwFirmwareProvider {
     }
 }
 
-// 7. hw_battery (BatteryInfoView)
+// 7. hw_battery
 pub struct HwBatteryProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -433,12 +433,12 @@ impl TableProvider for HwBatteryProvider {
         "hw_battery"
     }
     fn description(&self) -> &'static str {
-        "Inspect smart battery capacities, wear level, voltage, and charge rate via IOCTL_BATTERY (BatteryInfoView)"
+        "Inspect smart battery capacities, wear level, voltage, and charge rate via IOCTL_BATTERY"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Smart Battery Diagnostics (BatteryInfoView)",
+            "Smart Battery Diagnostics",
             vec![
                 ColumnDef::new("battery_name", "Battery", ColumnType::Text).with_width_hint(140),
                 ColumnDef::new("manufacturer", "Manufacturer", ColumnType::Text).with_width_hint(110),
@@ -483,7 +483,7 @@ impl TableProvider for HwBatteryProvider {
     }
 }
 
-// 8. hw_codecs (InstalledCodec)
+// 8. hw_codecs
 pub struct HwCodecsProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -497,12 +497,12 @@ impl TableProvider for HwCodecsProvider {
         "hw_codecs"
     }
     fn description(&self) -> &'static str {
-        "Inspect installed MFT, Drivers32, and SYSTEM.INI audio/video codecs (InstalledCodec)"
+        "Inspect installed MFT, Drivers32, and SYSTEM.INI audio/video codecs"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Installed Audio/Video Codecs (InstalledCodec)",
+            "Installed Audio/Video Codecs",
             vec![
                 ColumnDef::new("codec_name", "Codec Name", ColumnType::Text).with_width_hint(200),
                 ColumnDef::new("codec_type", "Type", ColumnType::Text).with_width_hint(140),
@@ -541,7 +541,7 @@ impl TableProvider for HwCodecsProvider {
     }
 }
 
-// 9. hw_timezones (TimeZonesView)
+// 9. hw_timezones
 pub struct HwTimeZonesProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -555,12 +555,12 @@ impl TableProvider for HwTimeZonesProvider {
         "hw_timezones"
     }
     fn description(&self) -> &'static str {
-        "Inspect Windows time zones, REG_TZI_FORMAT biases, and DST rules (TimeZonesView)"
+        "Inspect Windows time zones, REG_TZI_FORMAT biases, and DST rules"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Windows Time Zones (TimeZonesView)",
+            "Windows Time Zones",
             vec![
                 ColumnDef::new("time_zone_id", "Time Zone ID", ColumnType::Text).with_width_hint(180),
                 ColumnDef::new("display_name", "Display Name", ColumnType::Text).with_width_hint(240),
@@ -601,7 +601,7 @@ impl TableProvider for HwTimeZonesProvider {
     }
 }
 
-// 10. hw_special_folders (SpecialFoldersView)
+// 10. hw_special_folders
 pub struct HwSpecialFoldersProvider {
     backend: Arc<dyn HwBackend>,
 }
@@ -615,12 +615,12 @@ impl TableProvider for HwSpecialFoldersProvider {
         "hw_special_folders"
     }
     fn description(&self) -> &'static str {
-        "Resolve Windows Known Folders (FOLDERID_*) and CSIDL paths (SpecialFoldersView)"
+        "Resolve Windows Known Folders (FOLDERID_*) and CSIDL paths"
     }
     fn schema(&self) -> TableSchema {
         TableSchema::new(
             self.tool_id(),
-            "Special & Known Folders (SpecialFoldersView)",
+            "Special & Known Folders",
             vec![
                 ColumnDef::new("folder_name", "Folder Name", ColumnType::Text).with_width_hint(150),
                 ColumnDef::new("csidl", "CSIDL", ColumnType::Text).with_width_hint(170),

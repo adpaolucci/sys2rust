@@ -17,7 +17,7 @@ pub fn all_shell_providers(backend: Arc<dyn ShellBackend>) -> Vec<Arc<dyn TableP
         Arc::new(ShellLegacyUninstProvider::new(Arc::clone(&backend))),
         Arc::new(ShellShellexProvider::new(Arc::clone(&backend))),
         Arc::new(ShellMenuProvider::new(Arc::clone(&backend))),
-        Arc::new(ShellMenuNewProvider::new(Arc::clone(&backend))),
+        Arc::new(ShellNewMenuProvider::new(Arc::clone(&backend))),
         Arc::new(ShellFiletypesProvider::new(Arc::clone(&backend))),
         Arc::new(ShellOpenwithProvider::new(Arc::clone(&backend))),
         Arc::new(ShellComProvider::new(Arc::clone(&backend))),
@@ -49,7 +49,7 @@ pub fn all_shell_actions(backend: Arc<dyn ShellBackend>) -> Vec<Arc<dyn ActionCo
         Arc::new(ShellMenuToggleAction {
             backend: Arc::clone(&backend),
         }),
-        Arc::new(ShellMenuNewToggleAction {
+        Arc::new(ShellNewToggleAction {
             backend: Arc::clone(&backend),
         }),
         Arc::new(ShellFiletypesEditAction {
@@ -115,8 +115,8 @@ macro_rules! simple_shell_provider {
 simple_shell_provider!(
     ShellStartupProvider,
     "shell_startup",
-    "Windows Startup Items (WhatInStartup)",
-    "Inspect Run keys, StartupApproved binary states, and Startup folders (WhatInStartup)",
+    "Windows Startup Items",
+    "Inspect Run keys, StartupApproved binary states, and Startup folders",
     vec![
         ColumnDef::new("entry_name", "Entry Name", ColumnType::Text).with_width_hint(160),
         ColumnDef::new("type", "Type", ColumnType::Text).with_width_hint(100),
@@ -154,8 +154,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellUninstallProvider,
     "shell_uninstall",
-    "Installed Programs (UninstallView)",
-    "Inspect installed programs across HKLM/WOW6432Node/HKCU Uninstall keys (UninstallView)",
+    "Installed Programs",
+    "Inspect installed programs across HKLM/WOW6432Node/HKCU Uninstall keys",
     vec![
         ColumnDef::new("display_name", "Display Name", ColumnType::Text).with_width_hint(200),
         ColumnDef::new("version", "Version", ColumnType::Text).with_width_hint(100),
@@ -193,8 +193,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellMsiProvider,
     "shell_msi",
-    "Windows Installer Packages (InstalledPackagesView)",
-    "Inspect MSI products via MsiEnumProductsExW / MsiGetProductInfoExW (InstalledPackagesView)",
+    "Windows Installer Packages",
+    "Inspect MSI products via MsiEnumProductsExW / MsiGetProductInfoExW",
     vec![
         ColumnDef::new("package_name", "Package Name", ColumnType::Text).with_width_hint(200),
         ColumnDef::new("product_code", "Product Code", ColumnType::Text).with_width_hint(220),
@@ -230,8 +230,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellAppxProvider,
     "shell_appx",
-    "Microsoft Store / Appx Packages (InstalledAppView)",
-    "Inspect UWP/MSIX Appx packages via WinRT PackageManager & AppxManifest.xml (InstalledAppView)",
+    "Microsoft Store / Appx Packages",
+    "Inspect UWP/MSIX Appx packages via WinRT PackageManager & AppxManifest.xml",
     vec![
         ColumnDef::new("package_name", "Package Name", ColumnType::Text).with_width_hint(200),
         ColumnDef::new("family_name", "Family Name", ColumnType::Text).with_width_hint(220),
@@ -267,8 +267,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellLegacyUninstProvider,
     "shell_legacy_uninst",
-    "Uninstaller Entries (MyUninstaller)",
-    "Compact installed software uninstaller inventory (MyUninstaller)",
+    "Uninstaller Entries",
+    "Compact installed software uninstaller inventory",
     vec![
         ColumnDef::new("program_name", "Program Name", ColumnType::Text).with_width_hint(200),
         ColumnDef::new("version", "Version", ColumnType::Text).with_width_hint(100),
@@ -298,8 +298,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellShellexProvider,
     "shell_shellex",
-    "Shell Extensions (ShellExView)",
-    "Inspect registered Explorer Shell Extensions and Approved/Blocked status (ShellExView)",
+    "Shell Extensions",
+    "Inspect registered Explorer Shell Extensions and Approved/Blocked status",
     vec![
         ColumnDef::new("extension_name", "Extension Name", ColumnType::Text).with_width_hint(200),
         ColumnDef::new("disabled", "Disabled", ColumnType::Bool).with_width_hint(75),
@@ -333,8 +333,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellMenuProvider,
     "shell_menu",
-    "Explorer Context Menus (ShellMenuView)",
-    "Inspect static Explorer context menu verbs under HKCR (ShellMenuView)",
+    "Explorer Context Menus",
+    "Inspect static Explorer context menu verbs under HKCR",
     vec![
         ColumnDef::new("menu_name", "Menu Text", ColumnType::Text).with_width_hint(170),
         ColumnDef::new("menu_key", "Key", ColumnType::Text).with_width_hint(120),
@@ -366,10 +366,10 @@ simple_shell_provider!(
 
 // 8. shell_menu_new
 simple_shell_provider!(
-    ShellMenuNewProvider,
+    ShellNewMenuProvider,
     "shell_menu_new",
-    "Explorer 'New' Context Menu (ShellMenuNew)",
-    "Inspect Explorer 'New' submenu ShellNew templates (ShellMenuNew)",
+    "Explorer 'New' Context Menu",
+    "Inspect Explorer 'New' submenu ShellNew templates",
     vec![
         ColumnDef::new("extension", "Extension", ColumnType::Text).with_width_hint(90),
         ColumnDef::new("file_type", "File Type", ColumnType::Text).with_width_hint(140),
@@ -379,7 +379,7 @@ simple_shell_provider!(
         ColumnDef::new("registry_key", "Registry Key", ColumnType::Text).with_width_hint(200),
     ],
     list_menu_new,
-    |id, m: crate::backend::ShellMenuNewItem| {
+    |id, m: crate::backend::ShellNewItem| {
         Row::new(
             id,
             vec![
@@ -399,8 +399,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellFiletypesProvider,
     "shell_filetypes",
-    "Registered File Types (FileTypesMan)",
-    "Inspect registered file extensions, ProgIDs, MIME types, icons, and open commands (FileTypesMan)",
+    "Registered File Types",
+    "Inspect registered file extensions, ProgIDs, MIME types, icons, and open commands",
     vec![
         ColumnDef::new("extension", "Extension", ColumnType::Text).with_width_hint(90),
         ColumnDef::new("type_name", "Type Name", ColumnType::Text).with_width_hint(150),
@@ -436,8 +436,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellOpenwithProvider,
     "shell_openwith",
-    "'Open With' Applications (OpenWithView)",
-    "Inspect applications registered in the Explorer 'Open With' dialog (OpenWithView)",
+    "'Open With' Applications",
+    "Inspect applications registered in the Explorer 'Open With' dialog",
     vec![
         ColumnDef::new("application_name", "Application", ColumnType::Text).with_width_hint(160),
         ColumnDef::new("exe_path", "Executable", ColumnType::Text).with_width_hint(230),
@@ -467,8 +467,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellComProvider,
     "shell_com",
-    "Registered COM / ActiveX DLLs (RegDllView)",
-    "Inspect registered COM/OLE DLLs and missing orphan registrations (RegDllView)",
+    "Registered COM / ActiveX DLLs",
+    "Inspect registered COM/OLE DLLs and missing orphan registrations",
     vec![
         ColumnDef::new("dll_path", "DLL Path", ColumnType::Text).with_width_hint(240),
         ColumnDef::new("clsid_count", "CLSIDs", ColumnType::Uint).with_width_hint(75),
@@ -502,8 +502,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellUrlProtoProvider,
     "shell_url_proto",
-    "URL Protocol Handlers (URLProtocolView)",
-    "Inspect custom Windows URI/URL protocol handlers (URLProtocolView)",
+    "URL Protocol Handlers",
+    "Inspect custom Windows URI/URL protocol handlers",
     vec![
         ColumnDef::new("protocol_name", "Protocol", ColumnType::Text).with_width_hint(130),
         ColumnDef::new("description", "Description", ColumnType::Text).with_width_hint(190),
@@ -533,8 +533,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellAppcompatProvider,
     "shell_appcompat",
-    "App Compatibility Flags (AppCompatibilityView)",
-    "Inspect AppCompatFlags\\Layers compatibility shims per executable (AppCompatibilityView)",
+    "App Compatibility Flags",
+    "Inspect AppCompatFlags\\Layers compatibility shims per executable",
     vec![
         ColumnDef::new("exe_path", "Executable Path", ColumnType::Text).with_width_hint(260),
         ColumnDef::new("layers", "Compatibility Layers", ColumnType::Text).with_width_hint(200),
@@ -597,8 +597,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellExtViewProvider,
     "shell_ext_view",
-    "Per-Extension Explorer Handlers (ExtensionView)",
-    "Inspect per-extension ShellEx handlers such as Thumbnail and Preview providers (ExtensionView)",
+    "Per-Extension Explorer Handlers",
+    "Inspect per-extension ShellEx handlers such as Thumbnail and Preview providers",
     vec![
         ColumnDef::new("extension", "Extension", ColumnType::Text).with_width_hint(90),
         ColumnDef::new("handler_kind", "Handler Kind", ColumnType::Text).with_width_hint(170),
@@ -657,8 +657,8 @@ simple_shell_provider!(
 simple_shell_provider!(
     ShellDesktopIconsProvider,
     "shell_desktop_icons",
-    "Desktop Icon Layout (DesktopOK)",
-    "Inspect desktop SysListView32 icon coordinates via VirtualAllocEx+ReadProcessMemory & DesktopOK INI",
+    "Desktop Icon Layout",
+    "Inspect desktop SysListView32 icon coordinates via VirtualAllocEx+ReadProcessMemory & icon profile INI",
     vec![
         ColumnDef::new("icon_name", "Icon Name", ColumnType::Text).with_width_hint(180),
         ColumnDef::new("x", "X", ColumnType::Int).with_width_hint(70),
@@ -713,12 +713,12 @@ simple_shell_provider!(
     }
 );
 
-// 19. shell_privacy_audit (CleanAfterMe read-only audit default)
+// 19. shell_privacy_audit (read-only audit default)
 simple_shell_provider!(
     ShellPrivacyAuditProvider,
     "shell_privacy_audit",
-    "Shell Privacy Audit (CleanAfterMe)",
-    "Read-only audit of RunMRU, TypedPaths, WordWheelQuery, Recent, and Temp artifacts (CleanAfterMe)",
+    "Shell Privacy Audit",
+    "Read-only audit of RunMRU, TypedPaths, WordWheelQuery, Recent, and Temp artifacts",
     vec![
         ColumnDef::new("category", "Category", ColumnType::Text).with_width_hint(140),
         ColumnDef::new("location", "Location", ColumnType::Text).with_width_hint(260),
@@ -912,10 +912,10 @@ impl ActionCommand for ShellMenuToggleAction {
     }
 }
 
-pub struct ShellMenuNewToggleAction {
+pub struct ShellNewToggleAction {
     backend: Arc<dyn ShellBackend>,
 }
-impl ActionCommand for ShellMenuNewToggleAction {
+impl ActionCommand for ShellNewToggleAction {
     fn command_id(&self) -> &'static str {
         "shell_menu_new_toggle"
     }
@@ -1174,7 +1174,7 @@ impl ActionCommand for ShellDesktopIconsRestoreAction {
         "shell_desktop_icons_restore"
     }
     fn description(&self) -> &'static str {
-        "Restore saved DesktopOK icon coordinates via LVM_SETITEMPOSITION (MAKELPARAM)"
+        "Restore saved desktop icon coordinates via LVM_SETITEMPOSITION (MAKELPARAM)"
     }
     fn risk_level(&self) -> ActionRiskLevel {
         ActionRiskLevel::Mutating
@@ -1201,7 +1201,7 @@ impl ActionCommand for ShellPrivacyAuditCleanAction {
         "shell_privacy_audit_clean"
     }
     fn description(&self) -> &'static str {
-        "Clean explicitly selected CleanAfterMe privacy categories (requires AllowMutating + confirm_destructive=true)"
+        "Clean explicitly selected shell privacy categories (requires AllowMutating + confirm_destructive=true)"
     }
     fn risk_level(&self) -> ActionRiskLevel {
         ActionRiskLevel::Mutating
@@ -1242,8 +1242,8 @@ mod tests {
     use super::*;
     use crate::mock::SyntheticShellBackend;
     use crate::parsers::{
-        decode_startup_approved, encode_startup_approved, parse_desktopok_ini, parse_tray_notify_stream, rot13_str,
-        serialize_desktopok_ini,
+        decode_startup_approved, encode_startup_approved, parse_desktop_icons_ini, parse_tray_notify_stream, rot13_str,
+        serialize_desktop_icons_ini,
     };
 
     #[test]
@@ -1258,7 +1258,7 @@ mod tests {
     }
 
     #[test]
-    fn startup_approved_tray_rot13_and_desktopok_roundtrip() {
+    fn startup_approved_tray_rot13_and_desktop_icons_roundtrip() {
         let blob = encode_startup_approved(true, Some(chrono::Utc::now()));
         let decoded = decode_startup_approved(&blob).unwrap();
         assert!(decoded.disabled);
@@ -1274,17 +1274,17 @@ mod tests {
         assert_eq!(tray[0].visibility, "Show");
 
         let icons =
-            parse_desktopok_ini("[DesktopOK]\nProfile=Test\n\n[Icon_0]\nName=MyPC\nX=10\nY=20\nMonitor=Primary\n");
+            parse_desktop_icons_ini("[DesktopIcons]\nProfile=Test\n\n[Icon_0]\nName=MyPC\nX=10\nY=20\nMonitor=Primary\n");
         assert_eq!(icons.len(), 1);
-        let ser = serialize_desktopok_ini("Test", &icons);
-        let round = parse_desktopok_ini(&ser);
+        let ser = serialize_desktop_icons_ini("Test", &icons);
+        let round = parse_desktop_icons_ini(&ser);
         assert_eq!(round[0].icon_name, "MyPC");
         assert_eq!(round[0].x, 10);
         assert_eq!(round[0].y, 20);
     }
 
     #[test]
-    fn clean_after_me_and_startup_mutations_enforce_policy_gates() {
+    fn privacy_audit_and_startup_mutations_enforce_policy_gates() {
         let tmp = tempfile::tempdir().unwrap();
         let tmp_file = tmp.path().join("junk.tmp");
         std::fs::write(&tmp_file, b"temp_bytes").unwrap();
@@ -1380,7 +1380,7 @@ mod tests {
             let clean_err = live.clean_privacy(&["BogusCategory".to_string()], false).unwrap_err();
             assert!(matches!(clean_err, sys2rust_core::Sys2RustError::InvalidArgument(_)));
 
-            // Non-existent DesktopOK profile returns NotFound
+            // Non-existent desktop icon profile returns NotFound
             let missing_ini = std::env::temp_dir().join("sys2rust_nonexistent_desktop_profile_99999.ini");
             let restore_err = live
                 .restore_desktop_icons(&missing_ini.display().to_string(), false)
