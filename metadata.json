@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "48-tool pure-Rust & Win32/ETW Windows process, hardware/firmware, shell/registry, and PE32/PE32+/.NET inspection suite with dual Win32/Iced GUIs, CLI, Merkle custody reports, and policy-gated MCP server.",
   "repository": "https://github.com/adpaolucci/sys2rust",
-  "homepage": "https://sys2rust.guap.ca",
+  "homepage": "https://guap.ca/sys2rust/",
   "license": "Apache-2.0",
   "binaries": [
     "sys2rust",
@@ -18,5 +18,358 @@
     "19 shell, startup, uninstall, MSI/Appx, shell extension, file association, COM, desktop icon layout, tray notify ROT13, and read-only privacy audit tools",
     "6 pure-Rust PE32/PE32+ & ECMA-335 .NET tools (exports, resources, ICO reassembly, .NET resources, executable info, GAC)",
     "Native Win32 (WinSafe) & Iced 0.14 dual GUIs, 7-format guap-export + SHA-256/512 Merkle custody, and policy-gated MCP stdio server"
+  ],
+  "mcp_tools_count": 70,
+  "tools": [
+    {
+      "id": "hw_battery",
+      "readOnly": true,
+      "summary": "Inspect smart battery capacities, wear level, voltage, and charge rate via IOCTL_BATTERY"
+    },
+    {
+      "id": "hw_codecs",
+      "readOnly": true,
+      "summary": "Inspect installed MFT, Drivers32, and SYSTEM.INI audio/video codecs"
+    },
+    {
+      "id": "hw_devices",
+      "readOnly": true,
+      "summary": "Inspect PnP devices, status, problem codes, hardware IDs, and drivers"
+    },
+    {
+      "id": "hw_drivers",
+      "readOnly": true,
+      "summary": "Inspect loaded kernel-mode device drivers and base addresses"
+    },
+    {
+      "id": "hw_firmware",
+      "readOnly": true,
+      "summary": "Inspect and decode SMBIOS and ACPI firmware tables with checksum validation"
+    },
+    {
+      "id": "hw_services",
+      "readOnly": true,
+      "summary": "Inspect Windows services, status, startup type, binary path, and account"
+    },
+    {
+      "id": "hw_special_folders",
+      "readOnly": true,
+      "summary": "Resolve Windows Known Folders (FOLDERID_*) and CSIDL paths"
+    },
+    {
+      "id": "hw_tasks",
+      "readOnly": true,
+      "summary": "Inspect Windows Scheduled Tasks via TaskScheduler COM and Task XML parser"
+    },
+    {
+      "id": "hw_timezones",
+      "readOnly": true,
+      "summary": "Inspect Windows time zones, REG_TZI_FORMAT biases, and DST rules"
+    },
+    {
+      "id": "hw_wmi",
+      "readOnly": true,
+      "summary": "Execute WQL queries against WMI namespaces with SAFEARRAY & DMTF handling"
+    },
+    {
+      "id": "pe_dotnet",
+      "readOnly": true,
+      "summary": "Inspect ECMA-335 .NET assembly metadata and ManifestResource streams"
+    },
+    {
+      "id": "pe_exports",
+      "readOnly": true,
+      "summary": "Inspect named, ordinal-only, and forwarded DLL exports in pure Rust"
+    },
+    {
+      "id": "pe_gac",
+      "readOnly": true,
+      "summary": "Enumerate .NET Global Assembly Cache (GAC) assemblies and versions"
+    },
+    {
+      "id": "pe_icons",
+      "readOnly": true,
+      "summary": "Inspect and reassemble RT_GROUP_ICON / RT_GROUP_CURSOR payloads"
+    },
+    {
+      "id": "pe_info",
+      "readOnly": true,
+      "summary": "Inspect PE32/PE32+ headers, version strings, Authenticode signature presence, and compiler hints"
+    },
+    {
+      "id": "pe_resources",
+      "readOnly": true,
+      "summary": "Inspect embedded .rsrc Win32 resources with MIME detection and SHA-256"
+    },
+    {
+      "id": "proc_activity",
+      "readOnly": true,
+      "summary": "Aggregate per-file I/O activity via passive ETW Microsoft-Windows-Kernel-File"
+    },
+    {
+      "id": "proc_debug",
+      "readOnly": true,
+      "summary": "Capture passive debug/module events without DLL injection"
+    },
+    {
+      "id": "proc_dlls",
+      "readOnly": true,
+      "summary": "Inspect loaded DLL modules across processes with version metadata"
+    },
+    {
+      "id": "proc_env",
+      "readOnly": true,
+      "summary": "Inspect process PEB RTL_USER_PROCESS_PARAMETERS current directory and environment variables"
+    },
+    {
+      "id": "proc_etw_life",
+      "readOnly": true,
+      "summary": "Monitor process start/stop and image loads via passive ETW Microsoft-Windows-Kernel-Process"
+    },
+    {
+      "id": "proc_gdi",
+      "readOnly": true,
+      "summary": "Inspect per-process GDI and USER object handle counters"
+    },
+    {
+      "id": "proc_handles",
+      "readOnly": true,
+      "summary": "Inspect open kernel handles per process with synchronous pipe deadlock guard"
+    },
+    {
+      "id": "proc_hang",
+      "readOnly": true,
+      "summary": "Diagnose hung windows using Wait Chain Traversal (WCT) and StackWalk64"
+    },
+    {
+      "id": "proc_heap",
+      "readOnly": true,
+      "summary": "Inspect process heap blocks and ASCII/hex previews via ToolHelp + ReadProcessMemory"
+    },
+    {
+      "id": "proc_list",
+      "readOnly": true,
+      "summary": "Enumerate running Windows processes, command lines, memory counters, CPU time, and integrity levels"
+    },
+    {
+      "id": "proc_mem",
+      "readOnly": true,
+      "summary": "Inspect virtual address space regions via VirtualQueryEx and GetMappedFileNameW"
+    },
+    {
+      "id": "proc_open_files",
+      "readOnly": true,
+      "summary": "Inspect open file handles across processes with FILE_TYPE_PIPE timeout guard"
+    },
+    {
+      "id": "proc_threads",
+      "readOnly": true,
+      "summary": "Inspect running Windows threads, start addresses, priorities, states, and wait reasons"
+    },
+    {
+      "id": "shell_appcompat",
+      "readOnly": true,
+      "summary": "Inspect AppCompatFlags\\Layers compatibility shims per executable"
+    },
+    {
+      "id": "shell_appx",
+      "readOnly": true,
+      "summary": "Inspect UWP/MSIX Appx packages via WinRT PackageManager & AppxManifest.xml"
+    },
+    {
+      "id": "shell_com",
+      "readOnly": true,
+      "summary": "Inspect registered COM/OLE DLLs and missing orphan registrations"
+    },
+    {
+      "id": "shell_desktop_icons",
+      "readOnly": true,
+      "summary": "Inspect desktop SysListView32 icon coordinates via VirtualAllocEx+ReadProcessMemory & icon profile INI"
+    },
+    {
+      "id": "shell_env_vars",
+      "readOnly": true,
+      "summary": "Inspect User and System environment variables with expanded values"
+    },
+    {
+      "id": "shell_ext_view",
+      "readOnly": true,
+      "summary": "Inspect per-extension ShellEx handlers such as Thumbnail and Preview providers"
+    },
+    {
+      "id": "shell_filetypes",
+      "readOnly": true,
+      "summary": "Inspect registered file extensions, ProgIDs, MIME types, icons, and open commands"
+    },
+    {
+      "id": "shell_legacy_uninst",
+      "readOnly": true,
+      "summary": "Compact installed software uninstaller inventory"
+    },
+    {
+      "id": "shell_menu",
+      "readOnly": true,
+      "summary": "Inspect static Explorer context menu verbs under HKCR"
+    },
+    {
+      "id": "shell_menu_new",
+      "readOnly": true,
+      "summary": "Inspect Explorer 'New' submenu ShellNew templates"
+    },
+    {
+      "id": "shell_msi",
+      "readOnly": true,
+      "summary": "Inspect MSI products via MsiEnumProductsExW / MsiGetProductInfoExW"
+    },
+    {
+      "id": "shell_mui_ver",
+      "readOnly": true,
+      "summary": "Inspect Shell MuiCache entries enriched with executable VS_VERSION_INFO metadata"
+    },
+    {
+      "id": "shell_openwith",
+      "readOnly": true,
+      "summary": "Inspect applications registered in the Explorer 'Open With' dialog"
+    },
+    {
+      "id": "shell_privacy_audit",
+      "readOnly": true,
+      "summary": "Read-only audit of RunMRU, TypedPaths, WordWheelQuery, Recent, and Temp artifacts"
+    },
+    {
+      "id": "shell_shellex",
+      "readOnly": true,
+      "summary": "Inspect registered Explorer Shell Extensions and Approved/Blocked status"
+    },
+    {
+      "id": "shell_startup",
+      "readOnly": true,
+      "summary": "Inspect Run keys, StartupApproved binary states, and Startup folders"
+    },
+    {
+      "id": "shell_taskmgr_ext",
+      "readOnly": true,
+      "summary": "Inspect TrayNotify ROT13 IconStreams/PastIconsStream and Win11 NotifyIconSettings"
+    },
+    {
+      "id": "shell_uninstall",
+      "readOnly": true,
+      "summary": "Inspect installed programs across HKLM/WOW6432Node/HKCU Uninstall keys"
+    },
+    {
+      "id": "shell_url_proto",
+      "readOnly": true,
+      "summary": "Inspect custom Windows URI/URL protocol handlers"
+    },
+    {
+      "id": "hw_codec_control",
+      "readOnly": false,
+      "summary": "Enable or disable an installed multimedia codec"
+    },
+    {
+      "id": "hw_device_control",
+      "readOnly": false,
+      "summary": "Enable or disable a PnP device via SetupDiSetClassInstallParamsW(DIF_PROPERTYCHANGE)"
+    },
+    {
+      "id": "hw_service_control",
+      "readOnly": false,
+      "summary": "Start, stop, pause, resume, or configure startup type of a Windows service"
+    },
+    {
+      "id": "hw_task_control",
+      "readOnly": false,
+      "summary": "Enable, disable, or run a Windows Scheduled Task"
+    },
+    {
+      "id": "proc_close_handle",
+      "readOnly": false,
+      "summary": "Close a handle in a target process via DuplicateHandle(DUPLICATE_CLOSE_SOURCE)"
+    },
+    {
+      "id": "proc_debug_attach",
+      "readOnly": false,
+      "summary": "Attach standard Win32 DebugActiveProcess probe briefly and detach cleanly"
+    },
+    {
+      "id": "proc_terminate",
+      "readOnly": false,
+      "summary": "Terminate a running Windows process by PID (requires AllowMutating + confirm_destructive=true)"
+    },
+    {
+      "id": "proc_thread_control",
+      "readOnly": false,
+      "summary": "Suspend or resume a thread by TID via standard Win32 SuspendThread/ResumeThread"
+    },
+    {
+      "id": "shell_appcompat_set",
+      "readOnly": false,
+      "summary": "Set AppCompatFlags compatibility layers for an executable"
+    },
+    {
+      "id": "shell_com_clean_orphan",
+      "readOnly": false,
+      "summary": "Remove an orphaned COM DLL registration whose target DLL no longer exists on disk"
+    },
+    {
+      "id": "shell_desktop_icons_restore",
+      "readOnly": false,
+      "summary": "Restore saved desktop icon coordinates via LVM_SETITEMPOSITION (MAKELPARAM)"
+    },
+    {
+      "id": "shell_env_vars_set",
+      "readOnly": false,
+      "summary": "Set a User or System environment variable"
+    },
+    {
+      "id": "shell_filetypes_edit",
+      "readOnly": false,
+      "summary": "Update description for a registered file extension"
+    },
+    {
+      "id": "shell_menu_new_toggle",
+      "readOnly": false,
+      "summary": "Enable or disable an Explorer 'New' submenu item"
+    },
+    {
+      "id": "shell_menu_toggle",
+      "readOnly": false,
+      "summary": "Enable or disable an Explorer context menu verb"
+    },
+    {
+      "id": "shell_openwith_toggle",
+      "readOnly": false,
+      "summary": "Enable or disable an application in Explorer's 'Open With' list"
+    },
+    {
+      "id": "shell_privacy_audit_clean",
+      "readOnly": false,
+      "summary": "Clean explicitly selected shell privacy categories (requires AllowMutating + confirm_destructive=true)"
+    },
+    {
+      "id": "shell_shellex_toggle",
+      "readOnly": false,
+      "summary": "Enable or disable an Explorer shell extension by CLSID"
+    },
+    {
+      "id": "shell_startup_delete",
+      "readOnly": false,
+      "summary": "Delete a Windows startup entry from Run registry key"
+    },
+    {
+      "id": "shell_startup_toggle",
+      "readOnly": false,
+      "summary": "Enable or disable a Windows startup entry via StartupApproved"
+    },
+    {
+      "id": "shell_uninstall_run",
+      "readOnly": false,
+      "summary": "Invoke an installed program's uninstaller"
+    },
+    {
+      "id": "shell_url_proto_toggle",
+      "readOnly": false,
+      "summary": "Enable or disable a custom URL protocol handler"
+    }
   ]
 }
