@@ -7,7 +7,7 @@ Publisher: adpaolucci
 PublisherUrl: https://github.com/adpaolucci
 PublisherSupportUrl: https://github.com/adpaolucci/sys2rust/issues
 PackageName: Sys2Rust
-PackageUrl: https://sys2rust.guap.ca
+PackageUrl: https://guap.ca/sys2rust/
 License: Apache-2.0
 LicenseUrl: https://github.com/adpaolucci/sys2rust/blob/main/LICENSE
 Copyright: Copyright (c) 2026 adpaolucci
@@ -35,6 +35,6 @@ Tags:
 ReleaseNotesUrl: https://github.com/adpaolucci/sys2rust/releases/tag/v0.1.0
 Documentations:
   - DocumentLabel: Project Hub & Documentation
-    DocumentUrl: https://sys2rust.guap.ca
+    DocumentUrl: https://guap.ca/sys2rust/
 ManifestType: defaultLocale
 ManifestVersion: 1.9.0

@@ -1,6 +1,6 @@
 class Sys2rust < Formula
   desc "48-tool Windows process/ETW, hardware/firmware, shell/registry, and pure-Rust PE/.NET inspection suite"
-  homepage "https://sys2rust.guap.ca"
+  homepage "https://guap.ca/sys2rust/"
   version "0.1.0"
   license "Apache-2.0"
 
