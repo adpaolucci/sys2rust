@@ -14,7 +14,6 @@ sys2rust-core.workspace = true
 guap-table.workspace = true
 guap-mcp.workspace = true
 roxmltree.workspace = true
-winreg.workspace = true
 anyhow.workspace = true
 thiserror.workspace = true
 serde.workspace = true
@@ -24,6 +23,7 @@ tracing.workspace = true
 sha2.workspace = true
 
 [target.'cfg(windows)'.dependencies]
+winreg.workspace = true
 windows = { workspace = true, features = [
     "Win32_Foundation",
     "Win32_Devices_DeviceAndDriverInstallation",

@@ -1273,8 +1273,9 @@ mod tests {
         assert_eq!(tray[0].tip_text, "System Tray Monitor");
         assert_eq!(tray[0].visibility, "Show");
 
-        let icons =
-            parse_desktop_icons_ini("[DesktopIcons]\nProfile=Test\n\n[Icon_0]\nName=MyPC\nX=10\nY=20\nMonitor=Primary\n");
+        let icons = parse_desktop_icons_ini(
+            "[DesktopIcons]\nProfile=Test\n\n[Icon_0]\nName=MyPC\nX=10\nY=20\nMonitor=Primary\n",
+        );
         assert_eq!(icons.len(), 1);
         let ser = serialize_desktop_icons_ini("Test", &icons);
         let round = parse_desktop_icons_ini(&ser);
