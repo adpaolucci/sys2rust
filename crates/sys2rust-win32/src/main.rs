@@ -1,3 +1,5 @@
+#![cfg_attr(all(windows, not(debug_assertions)), windows_subsystem = "windows")]
+
 use guap_gui_win32::{Win32TableHostConfig, run_win32_suite};
 use sys2rust_core::{Sys2RustConfig, init_logging};
 use sys2rust_mcp::build_suite_wiring;
