@@ -186,7 +186,7 @@ impl SyntheticShellBackend {
             scope: "User".to_string(),
             name: "RUSTUP_HOME".to_string(),
             value: r"%USERPROFILE%\.rustup".to_string(),
-            expanded_value: r"C:\Users\andre\.rustup".to_string(),
+            expanded_value: r"C:\Users\User\.rustup".to_string(),
             registry_key: r"HKCU\Environment".to_string(),
         }];
 

@@ -356,7 +356,7 @@ impl HwBackend for MockHwBackend {
                 folder_name: "Desktop".to_string(),
                 csidl: "CSIDL_DESKTOPDIRECTORY (0x0010)".to_string(),
                 known_folder_guid: "{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}".to_string(),
-                resolved_path: r"C:\Users\andre\Desktop".to_string(),
+                resolved_path: r"C:\Users\User\Desktop".to_string(),
                 exists: true,
                 env_variable: "%USERPROFILE%\\Desktop".to_string(),
             },
