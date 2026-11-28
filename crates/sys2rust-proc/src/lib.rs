@@ -1,5 +1,8 @@
+#![deny(unsafe_code)]
+
 pub mod backend;
 #[cfg(windows)]
+#[allow(unsafe_code)]
 pub mod live_win32;
 pub mod mock;
 pub mod providers;

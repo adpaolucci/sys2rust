@@ -1,3 +1,5 @@
+#![deny(unsafe_code)]
+
 pub mod binary;
 pub mod config;
 pub mod diag;

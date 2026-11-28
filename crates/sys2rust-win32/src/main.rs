@@ -1,3 +1,4 @@
+#![forbid(unsafe_code)]
 #![cfg_attr(all(windows, not(debug_assertions)), windows_subsystem = "windows")]
 
 use guap_gui_win32::{Win32TableHostConfig, run_win32_suite};

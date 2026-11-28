@@ -22,6 +22,7 @@ pub struct AvailabilityReport {
 }
 
 #[cfg(windows)]
+#[allow(unsafe_code)]
 pub fn check_elevation() -> ElevationStatus {
     use windows::Win32::Foundation::{CloseHandle, HANDLE};
     use windows::Win32::Security::{
@@ -116,6 +117,7 @@ pub fn check_elevation() -> ElevationStatus {
 }
 
 #[cfg(windows)]
+#[allow(unsafe_code)]
 pub fn enable_se_debug_privilege() -> bool {
     use windows::Win32::Foundation::{CloseHandle, HANDLE, LUID};
     use windows::Win32::Security::{
