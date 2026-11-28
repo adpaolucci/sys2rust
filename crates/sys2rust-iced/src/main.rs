@@ -1,3 +1,4 @@
+#![cfg_attr(all(windows, not(debug_assertions)), windows_subsystem = "windows")]
 #![forbid(unsafe_code)]
 
 use guap_gui_iced::{IcedSuiteConfig, run_iced_suite};

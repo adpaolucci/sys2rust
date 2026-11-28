@@ -54,7 +54,7 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 clap = { version = "4.6", features = ["derive"] }
 winsafe = { version = "0.0.29", features = ["gui", "shell"] }
-iced = { version = "0.14", features = ["wgpu", "tiny-skia", "tokio"] }
+iced = { version = "0.14", default-features = false, features = ["tiny-skia", "crisp", "web-colors", "tokio", "linux-theme-detection", "x11", "wayland"] }
 windows = "0.62"
 winreg = "0.56"
 roxmltree = "0.20"
